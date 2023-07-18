@@ -1,6 +1,7 @@
 import { bubbleSort } from '../Algorithms/BubbleSort';
 import { quickSort } from '../Algorithms/QuickSort';
 import { insertionSort } from '../Algorithms/InsertionSort';
+import { shellSort } from '../Algorithms/ShellSort';
 
 const algoChoices = [
     { 
@@ -22,6 +23,13 @@ const algoChoices = [
         tc:"n^2",
         sort:function(arr,n,res){
             insertionSort(arr,n,res)
+        }
+    },
+    { 
+        name:"Shell",
+        tc:"n^2",
+        sort:function(arr,n,res){
+            shellSort(arr,n,res)
         }
     },
 ]

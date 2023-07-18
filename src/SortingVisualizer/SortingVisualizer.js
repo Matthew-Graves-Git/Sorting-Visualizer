@@ -8,6 +8,9 @@ const SortingVisualizer = () => {
     const [arrayMaster, setarray] = useState([]);
     const [steps, setSteps] = useState(0);
     const [algorithms, setAlgorithms] = useState("");
+    const [isSorting, setisSorting] = useState(false);
+
+
 
     useEffect(() => {
         resetArray()
@@ -21,35 +24,36 @@ const SortingVisualizer = () => {
         setAlgorithms(currentAlgo[0])
     }
     
-    const startSort = () => {
+    const startSort = async () => {
+        setisSorting(true)
         const arr = [...arrayMaster];
         const res = []
         algorithms.sort(arr,arr.length,res);
         setSteps(res.length);
-        AnimateArray(res,editArr);
+        await AnimateArray(res,editArr);
+        setisSorting(false)
+        
     }
-
-
-   
+  
     const editArr = (newArr) =>{
         setarray(newArr);
     } 
 
     const resetArray = () => {
-        const arr = [];
-        let arrSize = 100;
-        for (let index = 0; index < arrSize; index++) {
-            arr.push(randomInt(100,500));
-        }
-        setSteps(0);
-        setarray(arr);
+            const arr = [];
+            let arrSize = 100;
+            for (let index = 0; index < arrSize; index++) {
+                arr.push(randomInt(100,500));
+            }
+            setSteps(0);
+            setarray(arr);
     }
 
     return ( 
         <div className="app-container">
             <section className="button-section">
-                <button onClick={startSort}>Sort</button>
-                <button onClick={resetArray}>Reset</button>
+                <button disabled={isSorting} onClick={startSort}>Sort</button>
+                <button disabled={isSorting} onClick={resetArray}>Reset</button>
                 <select value={algorithms.name} onChange={changeAlgo}>
                 {algoChoices.map((value) => (
                         <option key = {value.name} value={value.name}>{value.name}</option>

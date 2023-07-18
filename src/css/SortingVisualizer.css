@@ -13,6 +13,13 @@
     background-color: purple;
     display: inline-block;
     margin: 0 1px;
+    transition: width 2s;
+}
+.array-element:hover{
+    width: 3px;
+    background-color: green;
+    display: inline-block;
+    margin: 0 1px;
 }
 .button-section{
     background-color:  rgb(52, 52, 52);
