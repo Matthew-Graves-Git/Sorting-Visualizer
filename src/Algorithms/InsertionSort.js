@@ -1,4 +1,4 @@
-async function insertionSort(arr, n, edit) 
+function insertionSort(arr, n, res) 
 { 
     let i, key, j; 
     for (i = 1; i < n; i++)
@@ -12,21 +12,13 @@ async function insertionSort(arr, n, edit)
         while (j >= 0 && arr[j] > key)
         { 
             arr[j + 1] = arr[j];
-            await delay(10);
-            edit(arr)  
+            res.push([...arr]) 
             j = j - 1; 
         } 
         arr[j + 1] = key;
-        await delay(1);
-        edit(arr) 
+        res.push([...arr])
     } 
 } 
-
-function delay(ms) {
-    return new Promise(resolve => {
-      setTimeout(resolve, ms);
-    });
-}
 
 export {insertionSort}
    
