@@ -2,6 +2,7 @@ import { bubbleSort } from '../Algorithms/BubbleSort';
 import { quickSort } from '../Algorithms/QuickSort';
 import { insertionSort } from '../Algorithms/InsertionSort';
 import { shellSort } from '../Algorithms/ShellSort';
+import { mergeSort } from '../Algorithms/MergeSort';
 
 const algoChoices = [
     { 
@@ -13,23 +14,30 @@ const algoChoices = [
     },
     { 
         name:"Bubble",
-        tc:"n^2",
+        tc:"n\u00B2",
         sort:function(arr,n,res){
             bubbleSort(arr,n,res)
         }
     },
     { 
         name:"Insertion",
-        tc:"n^2",
+        tc:"n\u00B2",
         sort:function(arr,n,res){
             insertionSort(arr,n,res)
         }
     },
     { 
         name:"Shell",
-        tc:"n^2",
+        tc:"n\u00B2",
         sort:function(arr,n,res){
             shellSort(arr,n,res)
+        }
+    },
+    { 
+        name:"Merge",
+        tc:"nlog(n)",
+        sort:function(arr,n,res){
+            mergeSort(arr,n,res)
         }
     },
 ]
