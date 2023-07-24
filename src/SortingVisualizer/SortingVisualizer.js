@@ -9,11 +9,16 @@ const SortingVisualizer = () => {
     const [steps, setSteps] = useState(0);
     const [algorithms, setAlgorithms] = useState("");
     const [isSorting, setisSorting] = useState(false);
+    const [isSorted, setisSorted] = useState(false);
+    const [size, setsize] = useState(100);
+    const [boundedSize, setboundedSize] = useState(100);
 
+    const min = 10;
+    const max = 100;
 
 
     useEffect(() => {
-        resetArray()
+        resetArray(size)
         setAlgorithms(algoChoices[0])
     }, []);
 
@@ -32,48 +37,59 @@ const SortingVisualizer = () => {
         setSteps(res.length);
         await AnimateArray(res,editArr);
         setisSorting(false)
+        setisSorted(true)
         
     }
   
     const editArr = (newArr) =>{
         setarray(newArr);
+    }
+    const changeArrSize = (e) =>{
+        
+        if(e.target.value <= max && e.target.value >= min){
+        resetArray(e.target.value)
+        setboundedSize(e.target.value)
+        }
+        setsize(e.target.value);
     } 
 
-    const resetArray = () => {
+    const resetArray = (size) => {
             const arr = [];
-            let arrSize = 100;
-            for (let index = 0; index < arrSize; index++) {
+            for (let index = 0; index < size; index++) {
                 arr.push(randomInt(100,500));
             }
             setSteps(0);
             setarray(arr);
+            setisSorted(false)
     }
 
     return ( 
         <div className="app-container">
             <section className="button-section">
-                <button disabled={isSorting} onClick={startSort}>Sort</button>
-                <button disabled={isSorting} onClick={resetArray}>Reset</button>
-                <select value={algorithms.name} onChange={changeAlgo}>
+                <button className='selection-child' disabled={isSorting || isSorted} onClick={startSort}>Sort</button>
+                <button className='selection-child' disabled={isSorting} onClick={()=>resetArray(size)}>Reset</button>
+                <select className='selection-child' disabled={isSorting} value={algorithms.name} onChange={changeAlgo}>
                 {algoChoices.map((value) => (
                         <option key = {value.name} value={value.name}>{value.name}</option>
                 ))}
                 </select>
+                <input className='selection-child' disabled={isSorting} type="number" min={`${min}`} max={`${max}`} value={size} onChange={changeArrSize}></input>
             </section>
             <div className="array-container">
                 {arrayMaster && arrayMaster.map((value,index) => (
                     <div className="array-element" 
+                    id = {index}
                     key = {index}
                     style= {{
                         height: `${value}px`,
-                        width: "0.8vw",
+                        width: `${80/boundedSize}vw`,
                         // backgroundColor: `#${toHexPercent(value,100,500)}`
                         }}>
                     
                     </div>
                 ))}
             </div>
-            <p>{steps}</p>
+            <p>{steps} ms</p>
             <TimeBar bigO = {algorithms.tc}/>
         </div>
     );
